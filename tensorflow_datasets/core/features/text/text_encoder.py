@@ -249,6 +249,8 @@ class TokenTextEncoder(TextEncoder):
     self._lowercase = lowercase
     if self._lowercase:
       self._vocab_list = [t.lower() for t in self._vocab_list]
+      # Remove duplicates using method suggested by 'https://stackoverflow.com/a/39835527'
+      self._vocab_list = list(dict.fromkeys(self._vocab_list))
     # Note that internally everything is 0-indexed. Padding is dealt with at the
     # end of encode and the beginning of decode.
     self._token_to_id = dict(
